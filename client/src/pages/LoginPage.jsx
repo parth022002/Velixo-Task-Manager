@@ -4,6 +4,8 @@ import { FiUser, FiLock, FiMail, FiShield, FiArrowRight, FiCheckCircle, FiLoader
 import { HiSparkles } from 'react-icons/hi2';
 import { toast } from 'sonner';
 
+import { API_BASE_URL } from '../utils/apiConfig';
+
 export default function LoginPage() {
   const [isRegister, setIsRegister] = useState(false);
   const [name, setName] = useState('');
@@ -19,7 +21,7 @@ export default function LoginPage() {
     if (!email || !password) return;
 
     setLoading(true);
-    const endpoint = isRegister ? 'http://localhost:8000/api/auth/register' : 'http://localhost:8000/api/auth/login';
+    const endpoint = isRegister ? `${API_BASE_URL}/api/auth/register` : `${API_BASE_URL}/api/auth/login`;
 
     try {
       const res = await fetch(endpoint, {

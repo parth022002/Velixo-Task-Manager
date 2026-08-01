@@ -3,6 +3,8 @@ import { FiArrowRight, FiCommand, FiMic, FiPaperclip, FiLoader } from 'react-ico
 import { HiSparkles } from 'react-icons/hi2';
 import { toast } from 'sonner';
 
+import { API_BASE_URL } from '../utils/apiConfig';
+
 export default function IntentInputBar({ onIntentProcessed, onOpenCapture }) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -13,7 +15,7 @@ export default function IntentInputBar({ onIntentProcessed, onOpenCapture }) {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/intent/process', {
+      const res = await fetch(`${API_BASE_URL}/api/intent/process`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ raw_text: input, source: 'natural_language_bar' })

@@ -3,6 +3,8 @@ import { FiX, FiUpload, FiFileText, FiMic, FiCode, FiGlobe, FiLoader, FiCheckCir
 import { HiSparkles } from 'react-icons/hi2';
 import { toast } from 'sonner';
 
+import { API_BASE_URL } from '../utils/apiConfig';
+
 export default function UniversalCaptureModal({ isOpen, onClose, onCaptureSuccess }) {
   const [activeTab, setActiveTab] = useState('text');
   const [textContent, setTextContent] = useState('');
@@ -23,7 +25,7 @@ export default function UniversalCaptureModal({ isOpen, onClose, onCaptureSucces
       if (activeTab === 'file' && file) {
         const formData = new FormData();
         formData.append('file', file);
-        const res = await fetch('http://localhost:8000/api/capture/file', {
+        const res = await fetch(`${API_BASE_URL}/api/capture/file`, {
           method: 'POST',
           body: formData
         });
@@ -32,7 +34,7 @@ export default function UniversalCaptureModal({ isOpen, onClose, onCaptureSucces
         toast.success("File captured & structured!");
       } else {
         const content = activeTab === 'url' ? urlContent : textContent;
-        const res = await fetch('http://localhost:8000/api/capture/submit', {
+        const res = await fetch(`${API_BASE_URL}/api/capture/submit`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

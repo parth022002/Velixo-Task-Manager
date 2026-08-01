@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FiShield, FiCpu, FiZap, FiActivity, FiClock, FiAlertTriangle, FiCheckCircle, FiPlay } from 'react-icons/fi';
 
+import { API_BASE_URL } from '../utils/apiConfig';
+
 export default function PredictiveDashboard() {
   const [availableHours, setAvailableHours] = useState(5.0);
   const [energyLevel, setEnergyLevel] = useState('High');
@@ -14,7 +16,7 @@ export default function PredictiveDashboard() {
   const handleEvaluateCapacity = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/predictive/capacity-decision', {
+      const res = await fetch(`${API_BASE_URL}/api/predictive/capacity-decision`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -36,7 +38,7 @@ export default function PredictiveDashboard() {
 
   const handleTriggerAutomation = async (eventType) => {
     try {
-      const res = await fetch('http://localhost:8000/api/automation/trigger', {
+      const res = await fetch(`${API_BASE_URL}/api/automation/trigger`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FiAward, FiMoon, FiCheckCircle, FiAlertCircle, FiZap, FiX, FiTrendingUp } from 'react-icons/fi';
 
+import { API_BASE_URL } from '../utils/apiConfig';
+
 export default function EveningReviewModal({ isOpen, onClose }) {
   const [completedCount, setCompletedCount] = useState(7);
   const [plannedCount, setPlannedCount] = useState(8);
@@ -14,7 +16,7 @@ export default function EveningReviewModal({ isOpen, onClose }) {
   const handleGenerateReview = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/coach/evening-review', {
+      const res = await fetch(`${API_BASE_URL}/api/coach/evening-review`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

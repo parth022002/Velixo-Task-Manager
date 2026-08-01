@@ -29,6 +29,8 @@ import PredictiveDashboard from '../components/PredictiveDashboard';
 import EveningReviewModal from '../components/EveningReviewModal';
 import { FiTrendingUp, FiMoon } from 'react-icons/fi';
 
+import { API_BASE_URL } from '../utils/apiConfig';
+
 export default function HelixDashboard() {
   const [data, setData] = useState(null);
   const [activeTab, setActiveTab] = useState('brief'); // brief, planner, graph, hierarchy, predictive, analytics
@@ -49,9 +51,16 @@ export default function HelixDashboard() {
     return <Navigate to="/login" replace />;
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('velixo_user');
+    setCurrentUser(null);
+    toast.info("Logged out successfully");
+    navigate('/login');
+  };
+
   const fetchDashboardData = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/brief/dashboard');
+      const res = await fetch(`${API_BASE_URL}/api/brief/dashboard`);
       const json = await res.json();
       setData(json);
     } catch (err) {
@@ -65,7 +74,7 @@ export default function HelixDashboard() {
 
   const handleTaskStatusChange = async (taskId, newStatus) => {
     try {
-      await fetch(`http://localhost:8000/api/planner/task/${taskId}/status`, {
+      await fetch(`${API_BASE_URL}/api/planner/task/${taskId}/status`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -75,13 +84,6 @@ export default function HelixDashboard() {
     } catch (err) {
       toast.success(`Task status updated!`);
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('velixo_user');
-    setCurrentUser(null);
-    toast.info("Logged out of Velixo session.");
-    navigate('/login');
   };
 
   return (

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FiX, FiCpu, FiLoader } from 'react-icons/fi';
 import { toast } from 'sonner';
 
+import { API_BASE_URL } from '../utils/apiConfig';
+
 export default function SettingsModal({ isOpen, onClose }) {
   const [geminiKey, setGeminiKey] = useState('');
   const [groqKey, setGroqKey] = useState('');
@@ -11,7 +13,7 @@ export default function SettingsModal({ isOpen, onClose }) {
 
   useEffect(() => {
     if (isOpen) {
-      fetch('http://localhost:8000/api/settings/status')
+      fetch(`${API_BASE_URL}/api/settings/status`)
         .then(res => res.json())
         .then(data => setStatus(data))
         .catch(err => console.error(err));
@@ -25,7 +27,7 @@ export default function SettingsModal({ isOpen, onClose }) {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:8000/api/settings/keys', {
+      const res = await fetch(`${API_BASE_URL}/api/settings/keys`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

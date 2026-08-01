@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FiX, FiUser, FiLock, FiMail, FiShield, FiCheck, FiLoader } from 'react-icons/fi';
 import { toast } from 'sonner';
 
+import { API_BASE_URL } from '../utils/apiConfig';
+
 export default function LoginModal({ isOpen, onClose, onAuthSuccess }) {
   const [isRegister, setIsRegister] = useState(false);
   const [name, setName] = useState('');
@@ -17,7 +19,7 @@ export default function LoginModal({ isOpen, onClose, onAuthSuccess }) {
     if (!email || !password) return;
 
     setLoading(true);
-    const endpoint = isRegister ? 'http://localhost:8000/api/auth/register' : 'http://localhost:8000/api/auth/login';
+    const endpoint = isRegister ? `${API_BASE_URL}/api/auth/register` : `${API_BASE_URL}/api/auth/login`;
 
     try {
       const res = await fetch(endpoint, {

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FiUsers, FiShield, FiUserCheck, FiChevronRight, FiEdit, FiPlus, FiCheck } from 'react-icons/fi';
 import { toast } from 'sonner';
 
+import { API_BASE_URL } from '../utils/apiConfig';
+
 export default function TeamHierarchyView({ currentUser, onOpenRegister }) {
   const [hierarchyData, setHierarchyData] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -11,7 +13,7 @@ export default function TeamHierarchyView({ currentUser, onOpenRegister }) {
 
   const fetchHierarchy = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/hierarchy/tree');
+      const res = await fetch(`${API_BASE_URL}/api/hierarchy/tree`);
       const data = await res.json();
       setHierarchyData(data);
     } catch (err) {
@@ -37,7 +39,7 @@ export default function TeamHierarchyView({ currentUser, onOpenRegister }) {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/hierarchy/assign', {
+      const res = await fetch(`${API_BASE_URL}/api/hierarchy/assign`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

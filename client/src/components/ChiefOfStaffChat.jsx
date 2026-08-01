@@ -3,11 +3,13 @@ import { FiX, FiSend, FiUser, FiLoader } from 'react-icons/fi';
 import { HiSparkles } from 'react-icons/hi2';
 import { toast } from 'sonner';
 
+import { API_BASE_URL } from '../utils/apiConfig';
+
 export default function ChiefOfStaffChat({ isOpen, onClose }) {
   const [messages, setMessages] = useState([
     {
-      sender: 'assistant',
-      text: "Good day! I'm Velixo, your AI Chief of Staff. I hold persistent memory for all your projects, tasks, meetings, and habits. How can I assist you right now?",
+      sender: 'ai',
+      text: "Hello Parth! I'm your Velixo Chief of Staff AI. How can I optimize your schedule or projects today?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -42,7 +44,7 @@ export default function ChiefOfStaffChat({ isOpen, onClose }) {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:8000/api/chat/send', {
+      const res = await fetch(`${API_BASE_URL}/api/chat/send`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sender: 'user', text: userText })
