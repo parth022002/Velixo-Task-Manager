@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+client/node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Build & Output
+dist/
+client/dist/
+build/
+*.egg-info/
+
+# Environment & Credentials
+.env
+.env.local
+.env.*.local
+
+# Local Runtime Data Stores
+velixo_store.json
+helix_store.json
+backend/velixo_store.json
+backend/helix_store.json
+*.db
+*.sqlite3
+
+# IDE / System files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

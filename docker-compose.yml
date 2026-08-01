@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: velixo_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://neondb_owner:npg_ERJmtbgkO41Q@ep-solitary-shadow-az9g1d2n-pooler.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+      - PRIMARY_AI_PROVIDER=auto
+    restart: always
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: velixo_frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: always
