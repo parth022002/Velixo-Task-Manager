@@ -11,7 +11,7 @@ class GoogleIntegrationService:
     def __init__(self):
         self.client_id = settings.GOOGLE_CLIENT_ID
         self.client_secret = settings.GOOGLE_CLIENT_SECRET
-        self.redirect_uri = "http://localhost:8000/api/google/callback"
+        self.redirect_uri = os.getenv("GOOGLE_REDIRECT_URI", "http://localhost:8000/api/google/callback")
         self.scopes = [
             "https://www.googleapis.com/auth/calendar.readonly",
             "https://www.googleapis.com/auth/calendar.events",
